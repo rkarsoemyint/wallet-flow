@@ -126,3 +126,39 @@ input:focus {
 }
 
 .no-data { text-align: center; color: #888; margin-top: 20px; }
+
+.btn {
+  background-color: #6c5ce7; 
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #5849c4;
+}
+
+/* Logout Button (Mini) */
+.btn-logout-mini {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.btn-logout-mini:hover {
+  opacity: 0.9;
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
+}
