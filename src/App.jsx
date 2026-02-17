@@ -31,6 +31,22 @@ function App() {
   const [transactions, setTransactions] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
 
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem('theme') === 'dark'
+  );
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
+
   
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -108,6 +124,17 @@ function App() {
                   <span>📧 {user.email}</span>
                   <button onClick={handleLogout} className="btn-logout-mini">Logout</button>
                 </div>
+
+                <div className="user-profile">
+  <div className="profile-left">
+    <span>📧 {user.email}</span>
+   
+    <button onClick={toggleTheme} className="btn-theme">
+      {isDarkMode ? '☀️ Light' : '🌙 Dark'}
+    </button>
+  </div>
+  <button onClick={handleLogout} className="btn-logout-mini">Logout</button>
+</div>
 
                 <Header />
                 
