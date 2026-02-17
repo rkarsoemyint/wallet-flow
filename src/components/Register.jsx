@@ -14,12 +14,12 @@ const Register = () => {
     e.preventDefault();
     setError(''); 
 
-    // စကားဝှက် နှစ်ခု တူ၊ မတူ စစ်ဆေးခြင်း
+    
     if (password !== confirmPassword) {
       return setError("စကားဝှက်များ တူညီမှုမရှိပါ။");
     }
 
-    // စကားဝှက် အနည်းဆုံး ၆ လုံး ရှိ၊ မရှိ စစ်ဆေးခြင်း
+   
     if (password.length < 6) {
       return setError("စကားဝှက်သည် အနည်းဆုံး ၆ လုံးရှိရပါမည်။");
     }
@@ -27,9 +27,9 @@ const Register = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("Register Success!");
-      navigate('/'); // အကောင့်ဖွင့်ပြီးတာနဲ့ Dashboard ကို သွားမယ်
+      navigate('/');
     } catch (err) {
-      // Firebase error message များကို မြန်မာလို ပြန်ဆိုခြင်း
+      
       if (err.code === 'auth/email-already-in-use') {
         setError("ဤအီးမေးလ်ဖြင့် အကောင့်ဖွင့်ပြီးသား ဖြစ်နေပါသည်။");
       } else {
