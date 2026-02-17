@@ -1,4 +1,3 @@
-/* --- ၁။ Global Variables --- */
 :root {
   --bg-color: #f0f2f5;
   --container-bg: #ffffff;
@@ -18,7 +17,6 @@
   --border-color: #3e4042;
 }
 
-/* --- ၂။ Basic Setup --- */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -33,7 +31,6 @@ body {
   padding: 0 15px;
 }
 
-/* --- ၃။ Reusable Cards (Common Styles) --- */
 .user-profile, .inc-exp-container, .list li, .filter-container, .auth-card {
   background-color: var(--container-bg);
   box-shadow: var(--card-shadow);
@@ -43,12 +40,11 @@ body {
   margin-bottom: 20px;
 }
 
-/* --- ၄။ User Profile Layout (FIXED) --- */
 .user-profile {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* အလျားလိုက် တန်းနေစေရန် */
-  flex-wrap: nowrap;    /* အောက်ကို ဆင်းမသွားစေရန် */
+  align-items: center;
+  flex-wrap: nowrap;   
   gap: 10px;
 }
 
@@ -57,7 +53,7 @@ body {
   align-items: center;
   gap: 12px;
   flex: 1;
-  min-width: 0; /* စာသားရှည်ရင် overflow မဖြစ်စေရန် */
+  min-width: 0;
 }
 
 .profile-left span {
@@ -67,7 +63,6 @@ body {
   white-space: nowrap;
 }
 
-/* --- ၅။ List & Search --- */
 .search-box { margin-bottom: 15px; }
 
 .list {
@@ -88,14 +83,12 @@ body {
 .list li.plus { border-right: 5px solid #2ecc71; }
 .list li.minus { border-right: 5px solid #e74c3c; }
 
-/* Scrollbar Style */
 .list::-webkit-scrollbar { width: 4px; }
 .list::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
 }
 
-/* --- ၆။ Form Inputs --- */
 input[type='text'], input[type='number'], input[type='date'], 
 input[type='email'], input[type='password'], .month-input {
   width: 100%;
@@ -114,7 +107,6 @@ input:focus {
   border-color: #6c5ce7;
 }
 
-/* --- ၇။ Auth Specific --- */
 .auth-wrapper {
   display: flex;
   justify-content: center;
