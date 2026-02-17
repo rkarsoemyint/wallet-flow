@@ -43,7 +43,31 @@ body {
   margin-bottom: 20px;
 }
 
-/* --- ၄။ List & Search --- */
+/* --- ၄။ User Profile Layout (FIXED) --- */
+.user-profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* အလျားလိုက် တန်းနေစေရန် */
+  flex-wrap: nowrap;    /* အောက်ကို ဆင်းမသွားစေရန် */
+  gap: 10px;
+}
+
+.profile-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0; /* စာသားရှည်ရင် overflow မဖြစ်စေရန် */
+}
+
+.profile-left span {
+  font-size: 0.85rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- ၅။ List & Search --- */
 .search-box { margin-bottom: 15px; }
 
 .list {
@@ -61,6 +85,9 @@ body {
   margin: 8px 0;
 }
 
+.list li.plus { border-right: 5px solid #2ecc71; }
+.list li.minus { border-right: 5px solid #e74c3c; }
+
 /* Scrollbar Style */
 .list::-webkit-scrollbar { width: 4px; }
 .list::-webkit-scrollbar-thumb {
@@ -68,7 +95,7 @@ body {
   border-radius: 10px;
 }
 
-/* --- ၅။ Form Inputs --- */
+/* --- ၆။ Form Inputs --- */
 input[type='text'], input[type='number'], input[type='date'], 
 input[type='email'], input[type='password'], .month-input {
   width: 100%;
@@ -87,7 +114,7 @@ input:focus {
   border-color: #6c5ce7;
 }
 
-/* --- ၆။ Auth Specific --- */
+/* --- ၇။ Auth Specific --- */
 .auth-wrapper {
   display: flex;
   justify-content: center;
@@ -113,20 +140,7 @@ input:focus {
   margin-top: 1rem;
 }
 
-.btn-auth:hover { filter: brightness(1.1); }
-
-/* --- ၇။ Buttons & Labels --- */
-.btn-theme {
-  background: var(--bg-color);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  padding: 5px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.no-data { text-align: center; color: #888; margin-top: 20px; }
-
+/* --- ၈။ All Buttons --- */
 .btn {
   background-color: #6c5ce7; 
   color: white;
@@ -141,20 +155,28 @@ input:focus {
   transition: background 0.3s ease;
 }
 
-.btn:hover {
-  background-color: #5849c4;
+.btn:hover { background-color: #5849c4; }
+
+.btn-theme {
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-/* Logout Button (Mini) */
 .btn-logout-mini {
   background-color: #ff4757;
   color: white;
   border: none;
-  padding: 5px 15px;
-  border-radius: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
+  white-space: nowrap;
   transition: opacity 0.3s ease;
 }
 
@@ -162,3 +184,5 @@ input:focus {
   opacity: 0.9;
   box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
 }
+
+.no-data { text-align: center; color: #888; margin-top: 20px; }
