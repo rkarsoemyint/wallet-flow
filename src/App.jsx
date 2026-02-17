@@ -120,25 +120,19 @@ function App() {
           <Route path="/" element={
             user ? (
               <>
+                {/* Profile Section ကို တစ်ခုတည်းပဲ ထားပါမယ် */}
                 <div className="user-profile">
-                  <span>📧 {user.email}</span>
+                  <div className="profile-left">
+                    <span>📧 {user.email}</span>
+                    <button onClick={toggleTheme} className="btn-theme">
+                      {isDarkMode ? '☀️ Light' : '🌙 Dark'}
+                    </button>
+                  </div>
                   <button onClick={handleLogout} className="btn-logout-mini">Logout</button>
                 </div>
 
-                <div className="user-profile">
-  <div className="profile-left">
-    <span>📧 {user.email}</span>
-   
-    <button onClick={toggleTheme} className="btn-theme">
-      {isDarkMode ? '☀️ Light' : '🌙 Dark'}
-    </button>
-  </div>
-  <button onClick={handleLogout} className="btn-logout-mini">Logout</button>
-</div>
-
                 <Header />
                 
-               
                 <div className="filter-container">
                   <label>လအလိုက် စစ်ထုတ်ရန်: </label>
                   <input 
