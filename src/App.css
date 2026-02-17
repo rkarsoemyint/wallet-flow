@@ -113,3 +113,41 @@ input[type='text'], input[type='number'], input[type='date'], .month-input {
   background: #ccc;
   border-radius: 10px;
 }
+
+.search-box {
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  box-sizing: border-box;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+  max-height: 350px; 
+  overflow-y: auto;  
+}
+
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
