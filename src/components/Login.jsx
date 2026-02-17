@@ -14,7 +14,6 @@ const Login = () => {
     setError(''); 
 
     try {
-      
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Login Success!");
       navigate('/'); 
@@ -26,41 +25,43 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Wallet Flow သို့ ဝင်ရန်</h2>
-      
-     
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
-
-      <form onSubmit={handleLogin}>
-        <div className="form-control">
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <h2>ကြိုဆိုပါတယ်</h2>
+        {error && <div className="error-msg">{error}</div>}
         
-          <input 
-            type="email" 
-            placeholder="example@gmail.com"
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
-          />
-        </div>
-
-        <div className="form-control">
+        
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>အီးမေးလ်</label>
+            <input 
+              type="email" 
+              placeholder="example@gmail.com" 
+              value={email} // State နဲ့ ချိတ်ပါ
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+            />
+          </div>
           
-          <input 
-            type="password" 
-            placeholder="စကားဝှက် ၆ - လုံး ရိုက်ထည့်ပါ"
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-          />
+          <div className="form-group">
+            <label>စကားဝှက်</label>
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+          </div>
+          
+          <button type="submit" className="btn-auth">ဝင်ရောက်မည်</button>
+        </form>
+        
+        <div className="auth-footer">
+          အကောင့်မရှိသေးဘူးလား? 
+          <Link to="/register" className="auth-link">အသစ်ဖွင့်ရန်</Link>
         </div>
-
-        <button className="btn">အကောင့်ဝင်မည်</button>
-      </form>
-
-      <p>
-        အကောင့်မရှိသေးဘူးလား? <Link to="/register">ဒီမှာ အသစ်ဖွင့်ပါ</Link>
-      </p>
+      </div>
     </div>
   );
 };
