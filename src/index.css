@@ -96,3 +96,21 @@ input[type='text'], input[type='number'], input[type='date'], .month-input {
   background: var(--bg-color);
   color: var(--text-color);
 }
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+  max-height: 400px; /* အမြင့်ကို ကန့်သတ်လိုက်ပါ */
+  overflow-y: auto;  /* စာရင်းများလာရင် Box ထဲမှာတင် scroll ဆွဲလို့ရမယ် */
+  padding-right: 5px;
+}
+
+/* Scrollbar ကို ပိုလှအောင် ပြင်ဆင်ခြင်း */
+.list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
