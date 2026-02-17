@@ -236,3 +236,17 @@ input[type="date"] {
   font-family: inherit;
   cursor: pointer;
 }
+.btn-theme {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: var(--text-color);
+}
+
+.btn-theme:hover {
+  background: rgba(0,0,0,0.05);
+}
