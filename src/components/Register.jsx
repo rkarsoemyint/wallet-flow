@@ -6,69 +6,87 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(''); 
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setError('');
+    setError(''); 
 
+    // စကားဝှက် နှစ်ခု တူ၊ မတူ စစ်ဆေးခြင်း
+    if (password !== confirmPassword) {
+      return setError("စကားဝှက်များ တူညီမှုမရှိပါ။");
+    }
+
+    // စကားဝှက် အနည်းဆုံး ၆ လုံး ရှိ၊ မရှိ စစ်ဆေးခြင်း
     if (password.length < 6) {
-      return setError('စကားဝှက်သည် အနည်းဆုံး ၆ လုံး ရှိရပါမည်။');
+      return setError("စကားဝှက်သည် အနည်းဆုံး ၆ လုံးရှိရပါမည်။");
     }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      alert("အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။ Login ပြန်ဝင်ပေးပါ။");
-      navigate('/login'); 
+      console.log("Register Success!");
+      navigate('/'); // အကောင့်ဖွင့်ပြီးတာနဲ့ Dashboard ကို သွားမယ်
     } catch (err) {
-      
+      // Firebase error message များကို မြန်မာလို ပြန်ဆိုခြင်း
       if (err.code === 'auth/email-already-in-use') {
-        setError('ဒီအီးမေးလ်နဲ့ အကောင့်ဖွင့်ပြီးသား ဖြစ်နေပါတယ်။');
+        setError("ဤအီးမေးလ်ဖြင့် အကောင့်ဖွင့်ပြီးသား ဖြစ်နေပါသည်။");
       } else {
-        setError('အကောင့်ဖွင့်ရသည်မှာ အဆင်မပြေပါ။ ပြန်ကြိုးစားကြည့်ပါ။');
+        setError("အကောင့်ဖွင့်ရာတွင် အမှားအယွင်းရှိနေပါသည်။ ပြန်လည်ကြိုးစားပါ။");
       }
       console.error(err.message);
     }
   };
 
   return (
-    <div className="auth-container">
-      <h2>Wallet Flow အကောင့်ဖွင့်ရန်</h2>
-      
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
-
-      <form onSubmit={handleRegister}>
-        <div className="form-control">
-      
-          <input 
-            type="email" 
-            placeholder="example@gmail.com"
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
-          />
-        </div>
-
-        <div className="form-control">
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <h2>အကောင့်အသစ်ဖွင့်ရန်</h2>
+        {error && <div className="error-msg">{error}</div>}
+        
+        <form onSubmit={handleRegister}>
+          <div className="form-group">
+            <label>အီးမေးလ်</label>
+            <input 
+              type="email" 
+              placeholder="example@gmail.com" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
+          </div>
           
-          <input 
-            type="password" 
-            placeholder="စကားဝှက် (၆ လုံး)အသစ်ပေးပါ"
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-          />
+          <div className="form-group">
+            <label>စကားဝှက် (အနည်းဆုံး ၆ လုံး)</label>
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+            />
+          </div>
+
+          <div className="form-group">
+            <label>စကားဝှက်ကို ထပ်မံရိုက်ထည့်ပါ</label>
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required 
+            />
+          </div>
+          
+          <button type="submit" className="btn-auth">အကောင့်ဖွင့်မည်</button>
+        </form>
+        
+        <div className="auth-footer">
+          အကောင့်ရှိပြီးသားလား? 
+          <Link to="/login" className="auth-link">ဝင်ရောက်ရန်</Link>
         </div>
-
-        <button className="btn" style={{ backgroundColor: '#2ecc71' }}>
-          အကောင့်သစ်ဖွင့်မည်
-        </button>
-      </form>
-
-      <p>
-        အကောင့်ရှိပြီးသားလား? <Link to="/login">ဒီမှာ ဝင်ပါ</Link>
-      </p>
+      </div>
     </div>
   );
 };
