@@ -96,3 +96,20 @@ input[type='text'], input[type='number'], input[type='date'], .month-input {
   background: var(--bg-color);
   color: var(--text-color);
 }
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+  max-height: 400px;
+  overflow-y: auto; 
+  padding-right: 5px;
+}
+
+.list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
