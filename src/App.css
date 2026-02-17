@@ -1,3 +1,4 @@
+/* --- ၁။ Global Variables --- */
 :root {
   --bg-color: #f0f2f5;
   --container-bg: #ffffff;
@@ -5,6 +6,7 @@
   --header-color: #1a1a1a;
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   --border-color: #e4e6eb;
+  --primary-gradient: linear-gradient(135deg, #6c5ce7, #a29bfe);
 }
 
 [data-theme='dark'] {
@@ -16,6 +18,7 @@
   --border-color: #3e4042;
 }
 
+/* --- ၂။ Basic Setup --- */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -30,7 +33,8 @@ body {
   padding: 0 15px;
 }
 
-.user-profile, .inc-exp-container, .list li, .filter-container, .auth-container {
+/* --- ၃။ Reusable Cards (Common Styles) --- */
+.user-profile, .inc-exp-container, .list li, .filter-container, .auth-card {
   background-color: var(--container-bg);
   box-shadow: var(--card-shadow);
   border: 1px solid var(--border-color);
@@ -39,14 +43,79 @@ body {
   margin-bottom: 20px;
 }
 
-.user-profile {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* --- ၄။ List & Search --- */
+.search-box { margin-bottom: 15px; }
+
+.list {
+  list-style-type: none;
+  padding: 0 5px 0 0;
+  margin-bottom: 40px;
+  max-height: 350px;
+  overflow-y: auto;
 }
 
-.profile-left { display: flex; align-items: center; gap: 10px; }
+.list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px 0;
+}
 
+/* Scrollbar Style */
+.list::-webkit-scrollbar { width: 4px; }
+.list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* --- ၅။ Form Inputs --- */
+input[type='text'], input[type='number'], input[type='date'], 
+input[type='email'], input[type='password'], .month-input {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6c5ce7;
+}
+
+/* --- ၆။ Auth Specific --- */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.auth-card {
+  padding: 2.5rem;
+  max-width: 400px;
+  width: 100%;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.btn-auth:hover { filter: brightness(1.1); }
+
+/* --- ၇။ Buttons & Labels --- */
 .btn-theme {
   background: var(--bg-color);
   color: var(--text-color);
@@ -56,98 +125,4 @@ body {
   cursor: pointer;
 }
 
-.inc-exp-container { display: flex; justify-content: space-around; text-align: center; }
-
-.list li {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  margin: 8px 0;
-}
-
-input[type='text'], input[type='number'], input[type='date'], .month-input {
-  width: 100%;
-  padding: 10px;
-  background: var(--bg-color);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.btn {
-  background-color: #6c5ce7;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  width: 100%;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn:hover { background-color: #5849c4; }
-
-.loading-screen {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--bg-color);
-  color: var(--text-color);
-}
-.list {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 40px;
-  max-height: 400px;
-  overflow-y: auto; 
-  padding-right: 5px;
-}
-
-.list::-webkit-scrollbar {
-  width: 5px;
-}
-
-.list::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
-
-.search-box {
-  margin-bottom: 15px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  box-sizing: border-box;
-}
-
-.list {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 40px;
-  max-height: 350px; 
-  overflow-y: auto;  
-}
-
-.list::-webkit-scrollbar {
-  width: 4px;
-}
-
-.list::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
-
-.no-data {
-  text-align: center;
-  color: #888;
-  font-size: 0.9rem;
-  margin-top: 20px;
-}
+.no-data { text-align: center; color: #888; margin-top: 20px; }
