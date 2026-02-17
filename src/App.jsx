@@ -12,15 +12,8 @@ import Register from './components/Register';
 import { auth, db } from './firebase'; 
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { 
-  collection, 
-  query, 
-  where, 
-  onSnapshot, 
-  addDoc, 
-  deleteDoc, 
-  doc, 
-  serverTimestamp, 
-  orderBy 
+  collection, query, where, onSnapshot, addDoc, 
+  deleteDoc, doc, serverTimestamp, orderBy 
 } from 'firebase/firestore';
 
 import './App.css'; 
@@ -30,24 +23,17 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [transactions, setTransactions] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7));
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('theme') === 'dark');
 
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem('theme') === 'dark'
-  );
-
+  // ၁။ Theme ပြောင်းလဲခြင်း
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
-    }
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-  
+  // ၂။ User Login အခြေအနေစစ်ဆေးခြင်း
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -56,7 +42,7 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  
+  // ၃။ Firestore မှ လအလိုက် Data ဖတ်ခြင်း
   useEffect(() => {
     if (user) {
       const startOfMonth = selectedMonth + "-01";
@@ -71,44 +57,29 @@ function App() {
       );
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        const data = snapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        }));
+        const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
         setTransactions(data);
-      }, (error) => {
-        console.error("Firestore Error:", error);
-      });
+      }, (error) => console.error("Firestore Error:", error));
 
       return () => unsubscribe();
     }
   }, [user, selectedMonth]); 
 
-  const addTransaction = async (transaction) => {
+  // ၄။ Data အသစ်ထည့်ခြင်းနှင့် ဖျက်ခြင်း
+  const addTransaction = async (t) => {
     try {
       await addDoc(collection(db, "transactions"), {
-        text: transaction.text,
-        amount: transaction.amount,
-        date: transaction.date,
-        uid: user.uid,
-        createdAt: serverTimestamp() 
+        ...t, uid: user.uid, createdAt: serverTimestamp() 
       });
-    } catch (err) {
-      console.error("Error adding transaction:", err);
-    }
+    } catch (err) { console.error(err); }
   };
 
   const deleteTransaction = async (id) => {
-    try {
-      await deleteDoc(doc(db, "transactions", id));
-    } catch (err) {
-      console.error("Error deleting data: ", err);
-    }
+    try { await deleteDoc(doc(db, "transactions", id)); } 
+    catch (err) { console.error(err); }
   };
 
-  const handleLogout = () => signOut(auth);
-
-  if (loading) return <div className="loading">ခဏစောင့်ပါ...</div>;
+  if (loading) return <div className="loading-screen">ခဏစောင့်ပါ...</div>;
 
   return (
     <Router>
@@ -116,11 +87,9 @@ function App() {
         <Routes>
           <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
-          
           <Route path="/" element={
             user ? (
               <>
-                {/* Profile Section ကို တစ်ခုတည်းပဲ ထားပါမယ် */}
                 <div className="user-profile">
                   <div className="profile-left">
                     <span>📧 {user.email}</span>
@@ -128,22 +97,17 @@ function App() {
                       {isDarkMode ? '☀️ Light' : '🌙 Dark'}
                     </button>
                   </div>
-                  <button onClick={handleLogout} className="btn-logout-mini">Logout</button>
+                  <button onClick={() => signOut(auth)} className="btn-logout-mini">Logout</button>
                 </div>
 
                 <Header />
                 
                 <div className="filter-container">
-                  <label>လအလိုက် စစ်ထုတ်ရန်: </label>
-                  <input 
-                    type="month" 
-                    value={selectedMonth} 
-                    onChange={(e) => setSelectedMonth(e.target.value)} 
-                    className="month-input"
-                  />
+                  <label>လအလိုက်ကြည့်ရန်: </label>
+                  <input type="month" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)} className="month-input" />
                 </div>
 
-                <ExpenseChart transactions={transactions} />
+                <ExpenseChart transactions={transactions} isDarkMode={isDarkMode} />
                 
                 <div className="main-wrapper">
                   <Balance transactions={transactions} />
@@ -152,9 +116,7 @@ function App() {
                   <AddTransaction onAdd={addTransaction} />
                 </div>
               </>
-            ) : (
-              <Navigate to="/login" />
-            )
+            ) : <Navigate to="/login" />
           } />
         </Routes>
       </div>
