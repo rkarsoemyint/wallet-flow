@@ -100,12 +100,11 @@ input[type='text'], input[type='number'], input[type='date'], .month-input {
   list-style-type: none;
   padding: 0;
   margin-bottom: 40px;
-  max-height: 400px; /* အမြင့်ကို ကန့်သတ်လိုက်ပါ */
-  overflow-y: auto;  /* စာရင်းများလာရင် Box ထဲမှာတင် scroll ဆွဲလို့ရမယ် */
+  max-height: 400px; 
+  overflow-y: auto;  
   padding-right: 5px;
 }
 
-/* Scrollbar ကို ပိုလှအောင် ပြင်ဆင်ခြင်း */
 .list::-webkit-scrollbar {
   width: 5px;
 }
@@ -113,4 +112,42 @@ input[type='text'], input[type='number'], input[type='date'], .month-input {
 .list::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
+}
+/* Search Input Styling */
+.search-box {
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  box-sizing: border-box;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 40px;
+  max-height: 350px; 
+  overflow-y: auto;  
+}
+
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.no-data {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 20px;
 }
